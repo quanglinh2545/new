@@ -25,6 +25,22 @@
   <strong>Manga detail:</strong>
   <%= @manga.detail %>
 </p>
-
+ <h2>Review From</h2>
+<%= form_with(model: @manga_review, local: true) do |form| %>
+  <div class= "field">
+    <%= form.text_area :review %>
+    <%= form.hidden_field :manga_id, :value => @manga.id %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<h2>Review List</h2>
+<ul>
+  <% @manga.manga_review.each do |manga_review|%>
+   <li><%= manga_review.review %>
+     (<i><%= manga_review.user.name if manga_review.user %></i>)</li>
+<% end %>
+</ul>
 <%= link_to 'Edit', edit_manga_path(@manga) %> |
 <%= link_to 'Back', mangas_path %>
